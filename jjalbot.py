@@ -12,6 +12,7 @@ IMG_MAX_HASH = 10
 
 predicate_dict = defaultdict(list)
 
+
 @app.route('/slack', methods=['POST'])
 def listen_command():
     keyword = request.form.get('text').encode("utf-8")
@@ -48,7 +49,6 @@ def retrieve_img_url(dirty_string):
 
 # to avoid duplicate
 def pick_jjal_return_url(img_url_list, keyword):
-
     keyword_len = len(predicate_dict[keyword])
 
     hash_index = keyword_len % IMG_MAX_HASH
