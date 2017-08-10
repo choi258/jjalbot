@@ -21,6 +21,7 @@ def listen_command():
         "response_type": "in_channel",
         "text": img_url
     }
+
     return Response(json.dumps(json_data), mimetype='application/json')
 
 
@@ -30,7 +31,6 @@ def get_jjal(keyword):
     response = requests.get(url, headers=HEADERS)
     # print response.content
     img_url_list = retrieve_img_url(response.content)
-
     pick_url = pick_jjal_return_url(img_url_list, keyword)
 
     return pick_url
@@ -50,10 +50,11 @@ def retrieve_img_url(dirty_string):
 # to avoid duplicate
 def pick_jjal_return_url(img_url_list, keyword):
     keyword_len = len(predicate_dict[keyword])
-
     hash_index = keyword_len % IMG_MAX_HASH
+
     print 'hash_index: ' + str(hash_index)
     predicate_dict[keyword].append(img_url_list[hash_index])
+
     return img_url_list[hash_index]
 
 
