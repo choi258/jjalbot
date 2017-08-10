@@ -13,7 +13,7 @@ IMG_MAX_HASH = 10
 predicate_dict = defaultdict(list)
 
 @app.route('/slack', methods=['POST'])
-def inbound():
+def listen_command():
     keyword = request.form.get('text').encode("utf-8")
     img_url = get_jjal(keyword)
     json_data = {
