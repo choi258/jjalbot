@@ -16,26 +16,15 @@ img_url_dict = defaultdict(list)
 keyword_index_dict = dict()
 
 
-@app.route('/slack', methods=['POST'])
-def listen_command():
-    keyword = request.form.get('text').encode("utf-8")
-    img_url = get_jjal(keyword)
-    if not img_url:
-        json_data = {
-            "response_type": "in_channel",
-            "text": "모든 이미지 접근 불가능해!"
-        }
-    else:
-        json_data = {
-            "response_type": "in_channel",
-            "attachments": [
-                {
-                    "image_url": img_url
-                }
-            ]
-        }
+# http://127.0.0.1:5000/?keyword=%EC%86%90%EB%82%98%EC%9D%80
 
-    return Response(json.dumps(json_data), mimetype='application/json')
+@app.route('/', methods=['GET', 'POST'])
+def cache_img():
+    keyword = request.args.get('keyword').encode("utf-8")
+    print 'keyword: ' + str(keyword)
+    pick_url = get_jjal(keyword)
+
+    return Response(pick_url)
 
 
 def get_jjal(keyword):
@@ -104,5 +93,5 @@ def test():
     return Response('It works!')
 
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True)
+if __name__ == '__main__':
+    app.run(port=4081, debug=True)
