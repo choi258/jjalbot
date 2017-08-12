@@ -69,14 +69,6 @@ def filter_img(img_url_list):
     return filtered_img_url_list
 
 
-def isSuccess(img_url):
-    r = requests.get(img_url)
-    if r.status_code == 200:
-        return True
-    else:
-        return False
-
-
 def pick_jjal_return_url(keyword):
     keyword_index = keyword_index_dict[keyword]
     hash_index = keyword_index % len(img_url_dict[keyword])
